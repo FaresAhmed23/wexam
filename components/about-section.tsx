@@ -18,11 +18,7 @@ export default function AboutSection() {
 							{t("about.description")}
 						</p>
 						<p className="text-foreground/80 mb-6 leading-relaxed">
-							By using Wexam, the educational process becomes smoother and more
-							effective, providing a unified exam environment that promotes
-							transparency and reduces human errors. This system is not just a
-							technical tool but a strategic partner that helps achieve academic
-							excellence and empowers students to perform at their best.
+							{t("about.desc")}
 						</p>
 						<button className="primary-button px-6 py-3 rounded-lg">
 							{t("about.moreInfo")}
