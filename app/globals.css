@@ -1,26 +1,292 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--background: #ffffff;
+	--foreground: #171717;
+	--card: #ffffff;
+	--card-foreground: #171717;
+	--popover: #ffffff;
+	--popover-foreground: #171717;
+	--primary: #7b2cbf;
+	--primary-foreground: #ffffff;
+	--secondary: #f1f5f9;
+	--secondary-foreground: #1e293b;
+	--muted: #f1f5f9;
+	--muted-foreground: #64748b;
+	--accent: #f1f5f9;
+	--accent-foreground: #1e293b;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #e2e8f0;
+	--input: #e2e8f0;
+	--ring: #7b2cbf;
+	--radius: 0.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--radius: var(--radius);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+	--background: #0a0a0a;
+	--foreground: #ededed;
+	--card: #171717;
+	--card-foreground: #ededed;
+	--popover: #171717;
+	--popover-foreground: #ededed;
+	--primary: #9d4edd;
+	--primary-foreground: #ffffff;
+	--secondary: #1e293b;
+	--secondary-foreground: #f8fafc;
+	--muted: #1e293b;
+	--muted-foreground: #94a3b8;
+	--accent: #1e293b;
+	--accent-foreground: #f8fafc;
+	--destructive: #7f1d1d;
+	--destructive-foreground: #f8fafc;
+	--border: #1e293b;
+	--input: #1e293b;
+	--ring: #9d4edd;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-sans);
+}
+
+/* Make all buttons have a pointer cursor */
+button {
+	cursor: pointer;
+}
+
+/* For RTL support in Arabic */
+.rtl {
+	direction: rtl;
+	text-align: right;
+}
+
+.ltr {
+	direction: ltr;
+	text-align: left;
+}
+
+/* Animation classes */
+.animate-on-scroll {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Button styles - Fixed for both light and dark modes */
+.primary-button {
+	@apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+}
+
+.secondary-button {
+	@apply border border-primary text-primary hover:bg-primary/10 transition-colors;
+}
+
+/* Fix for dark mode secondary button */
+.dark .secondary-button {
+	@apply border border-primary text-primary-foreground hover:bg-primary/30;
+}
+
+/* Carousel improvements */
+.carousel-container {
+	@apply relative overflow-hidden rounded-lg;
+}
+
+.carousel-slide {
+	@apply min-w-full h-full transition-transform duration-500 ease-in-out;
+}
+
+.carousel-image {
+	@apply w-full h-full object-contain;
+}
+
+.carousel-nav {
+	@apply absolute top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors;
+}
+
+.carousel-indicators {
+	@apply absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2;
+}
+
+.carousel-indicator {
+	@apply w-3 h-3 rounded-full transition-colors;
+}
+
+/* Features section alignment */
+.features-tab {
+	@apply text-start w-full px-4 py-2 transition-colors hover:bg-primary/10;
+}
+
+.features-tab[data-state="active"] {
+	@apply bg-primary text-primary-foreground hover:bg-primary;
+}
+
+.rtl .features-tab {
+	@apply text-end;
+}
+
+/* Footer optimization */
+.footer-section {
+	@apply py-8 bg-primary text-primary-foreground;
+}
+
+.footer-content {
+	@apply container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.footer-links {
+	@apply space-y-2;
+}
+
+.footer-link {
+	@apply text-primary-foreground/80 hover:text-primary-foreground transition-colors;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		transform: translateY(100px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideDown {
+	from {
+		transform: translateY(-100px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slideUp {
+	animation: slideUp 0.5s ease-in-out;
+}
+
+.animate-slideDown {
+	animation: slideDown 0.5s ease-in-out;
+}
+
+/* Image optimizations */
+.image-hover-zoom {
+	overflow: hidden;
+}
+
+.image-hover-zoom img {
+	transition: transform 0.3s ease-in-out;
+}
+
+.image-hover-zoom:hover img {
+	transform: scale(1.05);
+}
+
+/* Image loading states */
+.image-loading {
+	position: relative;
+	overflow: hidden;
+}
+
+.image-loading::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.2),
+		transparent
+	);
+	animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+/* Responsive image containers */
+.image-container {
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%; /* 16:9 aspect ratio */
+	overflow: hidden;
+}
+
+.image-container.square {
+	padding-bottom: 100%; /* 1:1 aspect ratio */
+}
+
+.image-container.portrait {
+	padding-bottom: 150%; /* 2:3 aspect ratio */
+}
+
+.image-container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
